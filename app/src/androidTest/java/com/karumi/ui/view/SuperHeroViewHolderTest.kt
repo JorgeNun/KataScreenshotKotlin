@@ -21,6 +21,36 @@ class SuperHeroViewHolderTest : ScreenshotTest {
         compareScreenshot(holder, R.dimen.super_hero_row_height)
     }
 
+    @Test
+    fun showsAvengerSuperHero() {
+        val superHero = givenASuperHero(isAvenger = true)
+        val holder = givenASuperHeroViewHolder()
+
+        holder.render(superHero)
+
+        compareScreenshot(holder, R.dimen.super_hero_row_height)
+    }
+
+    @Test
+    fun showsAnySuperHeroWithLongName() {
+        val superHero = givenASuperHeroWithALongName()
+        val holder = givenASuperHeroViewHolder()
+
+        holder.render(superHero)
+
+        compareScreenshot(holder, R.dimen.super_hero_row_height)
+    }
+
+    @Test
+    fun showsAvengerSuperHeroWithLongName() {
+        val superHero = givenASuperHeroWithALongName(isAvenger = true)
+        val holder = givenASuperHeroViewHolder()
+
+        holder.render(superHero)
+
+        compareScreenshot(holder, R.dimen.super_hero_row_height)
+    }
+
     private fun givenASuperHeroViewHolder(): SuperHeroViewHolder {
         val context = getInstrumentation().targetContext
         val inflater = LayoutInflater.from(context)
@@ -44,7 +74,9 @@ class SuperHeroViewHolderTest : ScreenshotTest {
         return givenASuperHero(superHeroName, superHeroDescription, isAvenger)
     }
 
-    private fun givenASuperHeroWithALongName(): SuperHero {
+    private fun givenASuperHeroWithALongName(
+        isAvenger: Boolean = false
+    ): SuperHero {
         val superHeroName = """
             |Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             |incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -53,7 +85,6 @@ class SuperHeroViewHolderTest : ScreenshotTest {
             |proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             |""".trimMargin()
         val superHeroDescription = "Description Super Hero"
-        val isAvenger = false
         return givenASuperHero(superHeroName, superHeroDescription, isAvenger)
     }
 
