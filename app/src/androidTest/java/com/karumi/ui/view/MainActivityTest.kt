@@ -23,12 +23,85 @@ class MainActivityTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         compareScreenshot(activity)
     }
 
+    @Test
+    fun someSuperHeroesAreShown() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 5, avengers = false)
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun someAvengersAreShown() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 5, avengers = true)
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun justOneSuperHero() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = false)
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun justOneAvenger() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = true)
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun heroEmptyName() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = false, heroName = "")
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun heroLongName() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = false, heroName = "SupercalifragilisticuespialidosoManFistroDuodenarPecadorDeLaPradera")
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun avengerEmptyName() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = true, heroName = "")
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
+    @Test
+    fun avengerLongName() {
+        givenThereAreSomeSuperHeroes(numberOfSuperHeroes = 1, avengers = true, heroName = "SupercalifragilisticuespialidosoManFistroDuodenarPecadorDeLaPradera")
+
+        val activity = startActivity()
+
+        compareScreenshot(activity)
+    }
+
     private fun givenThereAreSomeSuperHeroes(
         numberOfSuperHeroes: Int = 1,
-        avengers: Boolean = false
+        avengers: Boolean = false,
+        heroName: String? = null
     ): List<SuperHero> {
         val superHeroes = IntRange(0, numberOfSuperHeroes - 1).map { id ->
-            val superHeroName = "SuperHero - $id"
+            val superHeroName = heroName.let { it } ?: "SuperHero - $id"
             val superHeroDescription = "Description Super Hero - $id"
             SuperHero(
                 superHeroName, null, avengers,
