@@ -32,6 +32,26 @@ class SuperHeroViewHolderTest : ScreenshotTest {
     }
 
     @Test
+    fun showsAvengerSuperHeroAvailable() {
+        val superHero = givenASuperHero(isAvenger = true, isAvailable = true)
+        val holder = givenASuperHeroViewHolder()
+
+        holder.render(superHero)
+
+        compareScreenshot(holder, R.dimen.super_hero_row_height)
+    }
+
+    @Test
+    fun showsAvengerSuperHeroNotAvailable() {
+        val superHero = givenASuperHero(isAvenger = true, isAvailable = false)
+        val holder = givenASuperHeroViewHolder()
+
+        holder.render(superHero)
+
+        compareScreenshot(holder, R.dimen.super_hero_row_height)
+    }
+
+    @Test
     fun showsAnySuperHeroWithLongName() {
         val superHero = givenASuperHeroWithALongName()
         val holder = givenASuperHeroViewHolder()
@@ -91,6 +111,7 @@ class SuperHeroViewHolderTest : ScreenshotTest {
     private fun givenASuperHero(
         superHeroName: String = "Super Hero Name",
         superHeroDescription: String = "Super Hero Description",
-        isAvenger: Boolean = false
-    ): SuperHero = SuperHero(superHeroName, null, isAvenger, superHeroDescription)
+        isAvenger: Boolean = false,
+        isAvailable: Boolean = false
+    ): SuperHero = SuperHero(superHeroName, null, isAvenger, superHeroDescription, isAvailable)
 }
